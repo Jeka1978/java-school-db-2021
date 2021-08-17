@@ -8,7 +8,7 @@ import lombok.ToString;
  */
 @ToString
 public class Client {
-    private final int debt;
+    private final int debt; //todo you can't remove final
     private final int bonus;
     private final String name;
     private final int salary;
