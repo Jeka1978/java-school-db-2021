@@ -6,6 +6,6 @@ package homework.lab1;
 public class AnimalDoctor {
 
     public void treat(Animal animal) {
-        animal.makeVoice();
+
     }
 }

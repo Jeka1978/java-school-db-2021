@@ -1,11 +1,14 @@
 package homework.lab1;
 
+
+
 /**
  * @author Evgeny Borisov
  */
 public class JekaSuperIntegerList implements SuperIntegerList {
     @Override
     public void add(int number) {
+
 
     }
 
