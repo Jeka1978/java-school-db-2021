@@ -1,10 +1,23 @@
 package homework.lab3;
 
+import com.github.javafaker.Faker;
+
 /**
  * @author Evgeny Borisov
  */
 public class MainHeroes {
     public static void main(String[] args) {
+
+
+        Faker faker = new Faker();
+
+        String fact = faker.chuckNorris().fact();
+        String character = faker.gameOfThrones().character();
+
+        System.out.println(character);
+        System.out.println(fact);
+
+
         //todo finish this
        /* HeroFactory heroFactory = new HeroFactory();
         Hero hero1 =heroFactory.createHero();
