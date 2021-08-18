@@ -1,6 +1,5 @@
 package homework.lab2;
 
-import lombok.Data;
 import lombok.ToString;
 
 /**
@@ -13,10 +12,68 @@ public class Client {
     private final String name;
     private final int salary;
 
-    public Client(int debt, int bonus, String name, int salary) {
-        this.debt = debt;
-        this.bonus = bonus;
-        this.name = name;
-        this.salary = salary;
+    private Client(Builder builder) {
+        this.debt = builder.debt;
+        this.bonus = builder.bonus;
+        this.name = builder.name;
+        this.salary = builder.salary;
     }
+
+
+
+    public static Builder builder(){
+        return new Builder();
+    }
+
+     static class Builder {
+        private Integer debt;
+        private Integer bonus;
+        private String name;
+        private Integer salary;
+
+        private boolean wasUsed = false;
+
+
+        public Builder debt(int debt) {
+            this.debt = debt;
+            return this;
+        }
+
+        public Builder bonus(int bonus) {
+            this.bonus = bonus;
+            return this;
+        }
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder salary(int salary) {
+            this.salary = salary;
+            return this;
+        }
+
+        public Client build() {
+            if (wasUsed) {
+                throw new IllegalStateException("builder was already used, create new one");
+            }
+            wasUsed = true;
+            validate();
+            return new Client(this);
+
+        }
+
+        private void validate() {
+//            if(debt==null||bonus==null||)
+        }
+
+    }
+
+
+
 }
+
+
+
+

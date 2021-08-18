@@ -9,9 +9,15 @@ public class Start {
 
 
     public static void main(String[] args) throws InterruptedException {
+
+
+        StringBuffer str = new StringBuffer();
+
+
         for (String arg : args) {
-            System.out.println(arg);
+            str.append(arg);
         }
+        String s = str.toString();
 
 
         List<Integer> integers = List.of(1, 2, 3);

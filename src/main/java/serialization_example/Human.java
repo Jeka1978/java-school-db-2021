@@ -26,7 +26,7 @@ public class Human implements Serializable {
 
 
 
-    public void abc(){}
+
 
 
 }

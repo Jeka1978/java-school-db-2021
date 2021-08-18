@@ -1,5 +1,6 @@
 package com.db.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +13,7 @@ import static java.lang.Math.*;
  */
 
 @Setter
+@EqualsAndHashCode(exclude = "id")
 public class Person extends Object {
 
     @Getter
