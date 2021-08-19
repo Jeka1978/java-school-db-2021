@@ -6,6 +6,7 @@ package enums.lab;
 public class HttpService {
 
     public void handleHttpCode(int httpCode) {
-        //todo finish the enum and this method
+
+        HttpCode.handle(httpCode);
     }
 }
