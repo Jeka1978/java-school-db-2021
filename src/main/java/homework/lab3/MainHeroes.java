@@ -11,6 +11,7 @@ public class MainHeroes {
 
         Faker faker = new Faker();
 
+
         String fact = faker.chuckNorris().fact();
         String character = faker.gameOfThrones().character();
 
