@@ -12,7 +12,7 @@ import java.util.List;
 public class ReflectionHeroFactory implements HeroFactory {
 
 
-    private List<Class<? extends Hero>> heroClasses =
+    private final List<Class<? extends Hero>> heroClasses =
             List.of(Elf.class, Hobbit.class, King.class, Knight.class);
 
 
