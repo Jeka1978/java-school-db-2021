@@ -14,5 +14,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MailInfo {
     private int mailType;
-    private String context;
+    private String clientName;
 }

@@ -15,11 +15,15 @@ public class Main {
         Faker faker = new Faker();
         while (true) {
             MailInfo mailInfo = MailInfo.builder()
-                    .context(faker.chuckNorris().fact())
-                    .mailType(RandomUtil.between(1, 2))
+                    .clientName(faker.gameOfThrones().character())
+                    .mailType(RandomUtil.between(1, 3))
                     .build();
 
-            mailSender.send(mailInfo);
+            try {
+                mailSender.send(mailInfo);
+            } catch (Exception exception) {
+                exception.printStackTrace();
+            }
             Thread.sleep(2000);
 
         }
