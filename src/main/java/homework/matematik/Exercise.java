@@ -16,5 +16,11 @@ public class Exercise {
     private int a;
     private int b;
     private int answer;
-//    private Operation operation;
+    private Operation operation;
+
+
+    @Override
+    public String toString() {
+        return a + " " + operation + " " + b + " = " + answer;
+    }
 }
