@@ -28,6 +28,10 @@ public class Person extends Object {
 
 
 
+    public void printMe(){
+        System.out.println(this);
+    }
+
     public Person() {
         System.out.println("Я лунтик, и я родился");
     }

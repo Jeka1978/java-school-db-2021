@@ -1,17 +1,35 @@
 package java8;
 
+import lombok.SneakyThrows;
+
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * @author Evgeny Borisov
  */
 public class ListUtils {
 
+    public static void main(String[] args) {
+        List<Integer> list = List.of(1, 2, 3);
+        forEachWithDelay(list,500, (Consumer<Integer>) integer -> System.out.println(integer));
+    }
 
-    public static <T> void forEachWithDelay(List<T> list, int delay/* one more argument*/){
-        // delay will be used between each element
-        //todo finish this
+
+    @SneakyThrows
+    public static <T> void forEachWithDelay(List<T> list, int delay, Action<T> action){
+        for (T t : list) {
+            Thread.sleep(delay);
+            action.doAction(t);
+        }
+    }
+    @SneakyThrows
+    public static <T> void forEachWithDelay(List<T> list, int delay, Consumer<T> action){
+        for (T t : list) {
+            Thread.sleep(delay);
+            action.accept(t);
+        }
     }
 
 
