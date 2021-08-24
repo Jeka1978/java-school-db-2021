@@ -10,6 +10,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static java.util.function.Function.identity;
+import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toMap;
 
 /**
@@ -22,8 +23,9 @@ public class EmployeeUtils {
 
 
     public static Map<Seniority,Long> groupBySeniority(List<Employee> employees){
-        //todo implement this without using if block
-       return null;
+        return employees.stream()
+                .collect(groupingBy(employee ->
+                        Seniority.bySalary(employee.getSalary()), Collectors.counting()));
     }
 
 
@@ -66,7 +68,10 @@ public class EmployeeUtils {
                 Employee.builder().name("Kolya").salary(9).build()
         );
 
-        Map<String, Employee> map = toMapNameVsEmployee(list);
+       /* Map<String, Employee> map = toMapNameVsEmployee(list);
+        System.out.println(map);*/
+
+        Map<Seniority, Long> map = groupBySeniority(list);
         System.out.println(map);
     }
 

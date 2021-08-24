@@ -1,13 +1,26 @@
 package java8.streams_examples.lab;
 
+import lombok.RequiredArgsConstructor;
+
+import java.util.Arrays;
+
 /**
  * @author Evgeny Borisov
  */
+@RequiredArgsConstructor
 public enum Seniority {
-    JUN,MIDDLE,SENIOR
-    //jun <10
-    //middle >10  <20
-    //senior >20
+    JUN(Integer.MIN_VALUE, 10), MIDDLE(11, 20), SENIOR(21, Integer.MAX_VALUE);
+    private final int min;
+    private final int max;
 
-    // you can add any code you want but try to avoid using if block
+
+    public static Seniority bySalary(int salary) {
+        return Arrays.stream(values())
+                .filter(seniority -> seniority.min <= salary)
+                .filter(seniority -> seniority.max >= salary)
+                .findAny()
+                .get();
+    }
 }
+
+
