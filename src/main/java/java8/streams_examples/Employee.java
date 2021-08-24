@@ -15,4 +15,6 @@ import lombok.NoArgsConstructor;
 public class Employee {
     private String name;
     private int salary;
+
+    //don't change this class
 }
