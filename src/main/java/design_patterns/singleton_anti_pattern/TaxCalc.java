@@ -8,11 +8,9 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class TaxCalc {
 
-    private NdsResolver ndsResolver;
-
 
     public double withNds(double price) {
-        return ndsResolver.getNds() * price + price;
+        return NdsResolverSingleton.getInstance().getNds() * price + price;
     }
 
 
