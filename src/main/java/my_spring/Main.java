@@ -1,5 +1,7 @@
 package my_spring;
 
+import com.db.model.Person;
+
 /**
  * @author Evgeny Borisov
  */

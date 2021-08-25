@@ -10,6 +10,12 @@ public class PersonTest {
         System.out.println("person test object was created");
     }
 
+
+    @TestMethod(numberOfInvocations = 5)
+    public void anotherTest() {
+        System.out.println("TTTTTTTTTTTTTTT");
+    }
+
     public void testMyPerson() {
         System.out.println("person test1");
     }

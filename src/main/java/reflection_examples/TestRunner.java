@@ -1,8 +1,6 @@
 package reflection_examples;
 
-import com.db.model.Person;
 import homework.lab1.Animal;
-import java8.streams_examples.Employee;
 import lombok.SneakyThrows;
 
 import java.lang.reflect.Field;
@@ -28,14 +26,22 @@ public class TestRunner {
     }
 
 
-
     @SneakyThrows
     public static void runAllTestMethods(Object o) {
 
         Method[] methods = o.getClass().getMethods();
         for (Method method : methods) {
-            if (method.getName().startsWith("test")) {
-                method.invoke(o);
+            if (method.getName().startsWith("test") || method.isAnnotationPresent(TestMethod.class)) {
+                TestMethod annotation = method.getAnnotation(TestMethod.class);
+                if (annotation != null) {
+                    int numberOfInvocations = annotation.numberOfInvocations();
+                    for (int i = 0; i < numberOfInvocations; i++) {
+                        method.invoke(o);
+                    }
+                } else {
+
+                    method.invoke(o);
+                }
             }
         }
     }
@@ -71,17 +77,6 @@ public class TestRunner {
 
         runAllTestMethods("reflection_examples.PersonTest");
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

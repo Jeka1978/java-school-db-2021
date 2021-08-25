@@ -8,6 +8,7 @@ import homework.lab3.weapons.Weapon;
  * @author Evgeny Borisov
  */
 public class King extends AbstractHero {
+
     private Weapon weapon = new Sword();
 
     public King() {
