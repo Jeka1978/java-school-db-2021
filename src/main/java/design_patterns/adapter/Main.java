@@ -10,6 +10,6 @@ public class Main {
 
         Costable product = productRepo.getProduct();
 
-//        productHandler.handle(product);  //todo fix it
+        productHandler.handle(new Costable2PricableAdapter(product));
     }
 }
