@@ -12,6 +12,7 @@ public class JavaConfig implements Config {
 
     public JavaConfig() {
         ifc2ImplClass.put(Speaker.class, ConsoleSpeaker.class);
+        ifc2ImplClass.put(Cleaner.class, CleanerImpl.class);
 
     }
 

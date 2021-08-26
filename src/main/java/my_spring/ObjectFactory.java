@@ -1,13 +1,12 @@
 package my_spring;
 
-import homework.lab3.utils.RandomUtil;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.SneakyThrows;
+import org.reflections.ReflectionUtils;
 import org.reflections.Reflections;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
+import javax.annotation.PostConstruct;
+import java.lang.reflect.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -31,18 +30,57 @@ public class ObjectFactory {
                 configurators.add(aClass.getDeclaredConstructor().newInstance());
             }
         }
-
     }
+
+
+
 
     @SneakyThrows
     public <T> T createObject(Class<T> type) {
+
         type = resolveImple(type);
+
         T t = type.getDeclaredConstructor().newInstance();
+
         configure(t);
 
-        // run init method
+        invokeInit(type, t);
+
+        if (type.isAnnotationPresent(Benchmark.class)) {
+            return (T) Proxy.newProxyInstance(type.getClassLoader()
+                    , type.getInterfaces()
+                    , new InvocationHandler() {
+                        @Override
+                        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+
+                            System.out.println("********BENCHMARK STARTED FOR METHOD " + method.getName() + " **********");
+                            long start = System.nanoTime();
+                            Object retVal = method.invoke(t, args);
+                            long end = System.nanoTime();
+                            System.out.println(end - start);
+
+                            System.out.println("********BENCHMARK ENDED FOR METHOD " + method.getName() + " **********");
+
+
+                            return retVal;
+                        }
+                    }
+
+
+            );
+        }
 
         return t;
+    }
+
+
+    private <T> void invokeInit(Class<T> type, T t) throws IllegalAccessException, InvocationTargetException {
+        Set<Method> allMethods = ReflectionUtils
+                .getAllMethods(type, method -> method.isAnnotationPresent(PostConstruct.class));
+
+        for (Method method : allMethods) {
+            method.invoke(t);
+        }
     }
 
     private <T> void configure(T t) {
