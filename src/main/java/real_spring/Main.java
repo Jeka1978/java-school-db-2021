@@ -1,5 +1,6 @@
 package real_spring;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
@@ -7,11 +8,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class Main {
     public static void main(String[] args) {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("context.xml");
+//        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("context.xml");
 
-        System.out.println(context.getBean(Integer.class));
-        System.out.println(context.getBean(Integer.class));
-        System.out.println(context.getBean(Integer.class));
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(QuoterConfig.class);
+
         context.close();
     }
 }

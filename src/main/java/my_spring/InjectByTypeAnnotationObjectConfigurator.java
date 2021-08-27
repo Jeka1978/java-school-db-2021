@@ -4,6 +4,7 @@ import lombok.Setter;
 import lombok.SneakyThrows;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 /**
  * @author Evgeny Borisov
@@ -21,6 +22,14 @@ public class InjectByTypeAnnotationObjectConfigurator implements ObjectConfigura
                 field.setAccessible(true);
                 Object object = ObjectFactory.getInstance().createObject(field.getType());
                 field.set(t, object);
+            }
+        }
+        Method[] methods = t.getClass().getMethods();
+        for (Method method : methods) {
+            if (method.isAnnotationPresent(InjectByType.class)) {
+                Class<?> parameterType = method.getParameterTypes()[0];
+                Object object = ObjectFactory.getInstance().createObject(parameterType);
+                method.invoke(t, object);
             }
         }
     }

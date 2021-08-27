@@ -2,6 +2,7 @@ package my_spring;
 
 import homework.lab3.utils.RandomUtil;
 import lombok.SneakyThrows;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Field;
 

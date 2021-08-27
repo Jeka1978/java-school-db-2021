@@ -1,18 +1,30 @@
 package real_spring;
 
-import lombok.Setter;
-import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
-import javax.annotation.PreDestroy;
+import java.util.ArrayList;
 import java.util.List;
+
+import static java.util.Arrays.asList;
 
 /**
  * @author Evgeny Borisov
  */
+@Component
+@Order(1)
 public class TerminatorQuoter implements Quoter {
 
-    @Setter
+
     private List<String> messages;
+
+
+    @Value("${terminator}")
+    public void setMessages(String[] messages,@Value("${JAVA_HOME}")String java) {
+        System.out.println("java = " + java);
+        this.messages = new ArrayList<>(asList(messages));
+    }
 
     @Override
     public void sayQuote() {
@@ -20,8 +32,7 @@ public class TerminatorQuoter implements Quoter {
     }
 
 
-
-    public void terminate(){
+    public void terminate() {
         System.out.println("you are terminated...");
     }
 
