@@ -5,7 +5,7 @@ import javax.annotation.PostConstruct;
 /**
  * @author Evgeny Borisov
  */
-
+@Benchmark
 public final class CleanerImpl implements Cleaner {
 
     @InjectRandomInt(min = 3, max = 5)
@@ -18,10 +18,13 @@ public final class CleanerImpl implements Cleaner {
     }
 
     @Override
-    @Benchmark
+
     public void clean() {
         for (int i = 0; i < repeat; i++) {
             System.out.println("VVVVVVVvvvvvvvvvvvvvvvvv");
         }
     }
+
+
+
 }

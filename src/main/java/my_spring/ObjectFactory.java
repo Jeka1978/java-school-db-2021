@@ -6,7 +6,9 @@ import org.reflections.ReflectionUtils;
 import org.reflections.Reflections;
 
 import javax.annotation.PostConstruct;
-import java.lang.reflect.*;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -21,6 +23,7 @@ public class ObjectFactory {
     private Reflections scanner = new Reflections("my_spring");
 
     private List<ObjectConfigurator> configurators = new ArrayList<>();
+    private List<ProxyConfigurator> proxyConfigurators = new ArrayList<>();
 
     @SneakyThrows
     public ObjectFactory() {
@@ -30,9 +33,11 @@ public class ObjectFactory {
                 configurators.add(aClass.getDeclaredConstructor().newInstance());
             }
         }
+        Set<Class<? extends ProxyConfigurator>> set = scanner.getSubTypesOf(ProxyConfigurator.class);
+        for (Class<? extends ProxyConfigurator> aClass : set) {
+            proxyConfigurators.add(aClass.getDeclaredConstructor().newInstance());
+        }
     }
-
-
 
 
     @SneakyThrows
@@ -46,30 +51,15 @@ public class ObjectFactory {
 
         invokeInit(type, t);
 
-        if (type.isAnnotationPresent(Benchmark.class)) {
-            return (T) Proxy.newProxyInstance(type.getClassLoader()
-                    , type.getInterfaces()
-                    , new InvocationHandler() {
-                        @Override
-                        public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        t = wrapWithProxyIfNeeded(type, t);
 
-                            System.out.println("********BENCHMARK STARTED FOR METHOD " + method.getName() + " **********");
-                            long start = System.nanoTime();
-                            Object retVal = method.invoke(t, args);
-                            long end = System.nanoTime();
-                            System.out.println(end - start);
+        return t;
+    }
 
-                            System.out.println("********BENCHMARK ENDED FOR METHOD " + method.getName() + " **********");
-
-
-                            return retVal;
-                        }
-                    }
-
-
-            );
+    private <T> T wrapWithProxyIfNeeded(Class<T> type, T t) {
+        for (ProxyConfigurator proxyConfigurator : proxyConfigurators) {
+            t = (T) proxyConfigurator.configure(t, type);
         }
-
         return t;
     }
 
