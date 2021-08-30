@@ -1,4 +1,4 @@
-package nener_use_switch_with_spring;
+package never_use_switch_with_spring;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
