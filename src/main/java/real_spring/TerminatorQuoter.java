@@ -1,5 +1,6 @@
 package real_spring;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -14,6 +15,7 @@ import static java.util.Arrays.asList;
  */
 @Component
 @Order(1)
+@Film
 public class TerminatorQuoter implements Quoter {
 
 
