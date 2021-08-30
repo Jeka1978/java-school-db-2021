@@ -1,7 +1,6 @@
 package real_spring;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -18,13 +17,11 @@ public class TalkingRobot {
 
 
     @Autowired
-    @Film
     private List<Quoter> quoters;
 
 
-
     @PostConstruct
-    public void talk(){
+    public void talk() {
         System.out.println("name = " + name);
         quoters.forEach(Quoter::sayQuote);
     }

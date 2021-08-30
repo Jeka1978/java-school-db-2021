@@ -2,8 +2,8 @@ package screen_saver;
 
 import homework.lab3.utils.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Lookup;
 import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +23,11 @@ public class ColorFrame extends JFrame {
 
     @PostConstruct
     public void init() {
+
+        System.out.println(color.getBlue());
+        System.out.println(color.getBlue());
+        System.out.println(color.getBlue());
+
         setSize(200, 200);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
@@ -31,14 +36,10 @@ public class ColorFrame extends JFrame {
     public void moveToRandomLocation() {
         setLocation(RandomUtil.between(0, 1200), RandomUtil.between(0, 900));
         getContentPane().setBackground(color);
-        color = getColorBean();
         repaint();
     }
 
-    @Lookup
-    protected Color getColorBean() {
-        return null;
-    }
+
 }
 
 

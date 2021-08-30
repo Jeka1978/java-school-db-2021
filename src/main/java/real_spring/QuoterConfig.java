@@ -10,6 +10,7 @@ import org.springframework.context.annotation.*;
 @Configuration
 @PropertySource("classpath:quotes.properties")
 @ComponentScan(basePackages = "real_spring")
+@EnableAspectJAutoProxy
 public class QuoterConfig {
 
 

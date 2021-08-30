@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Book
 @Component
 @Order(2)
-public class ShakespearQuoter implements Quoter {
+public final class ShakespearQuoter implements Quoter {
 
 
 
