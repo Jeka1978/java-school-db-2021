@@ -22,5 +22,6 @@ public class MainConf {
         } catch (DBException exception) {
             System.out.println("У нас проблемы... База перегружается");
         }
+        serviceA.doA();
     }
 }

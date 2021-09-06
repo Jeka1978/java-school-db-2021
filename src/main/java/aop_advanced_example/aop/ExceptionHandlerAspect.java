@@ -8,6 +8,9 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+import java.util.WeakHashMap;
+
 /**
  * @author Evgeny Borisov
  */
@@ -18,9 +21,12 @@ public class ExceptionHandlerAspect {
     @Autowired
     private DBExceptionHandler dbExceptionHandler;
 
+    private Map<DBException, Void> exceptions = new WeakHashMap<>();
+
 
     @Pointcut("execution(* aop_advanced_example.services..*.*(..))")
-    public void allBusinessMethods() {}
+    public void allBusinessMethods() {
+    }
 
 
     @Before("allBusinessMethods() && @annotation(Deprecated)")
@@ -30,7 +36,10 @@ public class ExceptionHandlerAspect {
 
     @AfterThrowing(pointcut = "allBusinessMethods()", throwing = "ex")
     public void handleDBException(DBException ex) {
-        dbExceptionHandler.handle(ex);
+        if (!exceptions.containsKey(ex)) {
+            exceptions.put(ex, null);
+            dbExceptionHandler.handle(ex);
+        }
 
     }
 }

@@ -46,7 +46,7 @@ public class ColorFrame extends JFrame {
 
         getContentPane().add(button, BorderLayout.NORTH);
         setVisible(true);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     public static void main(String[] args) {

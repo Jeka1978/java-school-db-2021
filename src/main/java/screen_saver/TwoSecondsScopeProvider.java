@@ -6,6 +6,11 @@ import lombok.SneakyThrows;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.config.Scope;
 
+import java.lang.ref.WeakReference;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -13,7 +18,20 @@ import java.util.concurrent.TimeUnit;
  */
 public class TwoSecondsScopeProvider implements Scope {
 
-    Cache<String, Object> cache = CacheBuilder.newBuilder().expireAfterWrite(2, TimeUnit.SECONDS).build();
+    {
+        ExecutorService executorService = Executors.newCachedThreadPool();
+
+//        executorService.submit(() -> )
+//        executorService.submit(() -> )
+//        executorService.submit(() -> )
+
+
+//        executorService.invokeAll()
+    }
+
+    Cache<String, Object> cache = CacheBuilder.newBuilder().weakKeys().softValues().expireAfterWrite(2, TimeUnit.SECONDS).build();
+
+
 
 
     @Override
